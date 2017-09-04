@@ -263,9 +263,159 @@ Underground Uprising. If you have decoded this message correctly you will
 now know our next meeting will be held on Wednesday @ 7pm. We will also 
 require a key to be let into the meetings; this week\x1fs key '
 ```
+
+---
+
+## エンコード・デコード
+- - -
+### base64
+
+```
+>>> import base64
+>>> encoded = 'base64 encode'
+>>> base64.b64encode(encoded.encode('utf-8'))
+b'YmFzZTY0IGVuY29kZQ=='
+>>> decoded = b'YmFzZTY0IGVuY29kZQ=='
+>>> base64.b64decode(decoded)
+b'base64 encode'
+```
+
+全てバイトオブジェクトで扱う
+
+---
+
+## エンコード・デコード
+- - -
+### uu
+- encode.txt
+
+```
+encode uu
+```
+
+- python
+
+```
+>>> import uu
+>>> uu.encode('encode.txt', 'result.txt')
+```
+- result.txt
+
+```
+begin 644 encode.txt
+*96YC;V1E('5U"@
+                      (空行)
+end
+```
+
+---
+
+## エンコード・デコード
+- - -
+### rot13
+
+```
+>>> import codecs
+>>> codecs.encode('hello', 'rot13')
+'uryyb'
+>>> codecs.decode('uryyb', 'rot13')
+'hello'
+```
+
+---
+
+## 応用(5 ~ 10分)
+- - -
+KSNCTF:Easy Cipher
+```
+EBG KVVV vf n fvzcyr yrggre fhofgvghgvba pvcure gung ercynprf n 
+yrggre jvgu gur yrggre KVVV yrggref nsgre vg va gur nycunorg. EBG 
+KVVV vf na rknzcyr bs gur Pnrfne pvcure, qrirybcrq va napvrag Ebzr. 
+Synt vf SYNTFjmtkOWFNZdjkkNH. Vafreg na haqrefpber vzzrqvngryl nsgre SYNT.  
+```
+
+---
+
+## 答え
+- - - 
+KSNCTF:Easy Cipher
+```
+EBG KVVV vf n fvzcyr yrggre fhofgvghgvba pvcure gung ercynprf n 
+yrggre jvgu gur yrggre KVVV yrggref nsgre vg va gur nycunorg. EBG 
+KVVV vf na rknzcyr bs gur Pnrfne pvcure, qrirybcrq va napvrag Ebzr. 
+Synt vf SYNTFjmtkOWFNZdjkkNH. Vafreg na haqrefpber vzzrqvngryl nsgre SYNT.  
+```
+
+```
+>>> codecs.encode('EBG KVVV vf n fvzcyr yrggre fhofgvghgvba pvcure gung 
+ercynprf n yrggre jvgu gur yrggre KVVV yrggref nsgre vg va gur nycunorg. 
+EBG KVVV vf na rknzcyr bs gur Pnrfne pvcure, qrirybcrq va napvrag Ebzr. 
+Synt vf SYNTFjmtkOWFNZdjkkNH. Vafreg na haqrefpber vzzrqvngryl nsgre SYNT.'
+, 'rot13')
+'ROT XIII is a simple letter substitution cipher that replaces a letter with 
+the letter XIII letters after it in the alphabet. ROT XIII is an example of 
+the Caesar cipher, developed in ancient Rome. Flag is FLAGSwzgxBJSAMqwxxAU. 
+Insert an underscore immediately after FLAG.'
+```
+
+---
+
+## ハッシュ
+- - -
+
+```
+>>> import hashlib
+>>> hashlib.sha256(b'Hello World').digest()
+b'\xa5\x91\xa6\xd4\x0b\xf4 @J\x01\x173\xcf\xb7\xb1\x90\xd6,e\xbf\x0b\xcd\xa3+W\xb2w\xd9\xad\x9f\x14n'
+>>> hashlib.sha256(b'Hello World').hexdigest()
+'a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e'
+>>> hashlib.md5(b'Hello World').hexdigest()
+'b10a8db164e0754105b7a99be72e3fe5'
+```
+
+可能なアルゴリズム一覧
+```
+shlib.algorithms_available
+{'sha256', 'blake2s', 'SHA1', 'shake_256', 'ecdsa-with-SHA1', 'mdc2', 
+'SHA384', 'blake2b', 'sha3_224', 'sha512', 'dsaEncryption', 'sha', 
+'md5', 'MDC2', 'SHA512', 'sha1', 'MD5', 'shake_128', 'sha384', 'DSA', 
+'DSA-SHA', 'sha3_512', 'SHA256', 'sha3_256', 'md4', 'sha224', 'MD4', 
+'SHA224', 'RIPEMD160', 'dsaWithSHA', 'whirlpool', 'SHA', 'ripemd160', 
+'sha3_384'}
+```
+
+---
+
+## ファイルの入出力
+- - -
+
+test.py
+```
+a = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+ for i in a:
+       print(i * 6)
+```
+
+ファイルの入出力
+```
+>>> src = open('./test.py', 'r')
+>>> dst = open('./out.py', 'w')
+>>> for line in src :
+...     dst.write('# ' + line)
+...
+34
+3
+14
+19
+>>> open('./out.py', 'r').read()
+'# a = [1, 2, 3, 4, 5, 6, 7, 8, 9]\n# \n# for i in a:\n#'
+```
+
 <!-- テキストを左寄せにする -->
 <style type="text/css">
-.reveal .slides .content {text-align: left;}
+.reveal .slides .content {
+  text-align: left;
+  font-size: 40px;
+}
 </style>
-
-
